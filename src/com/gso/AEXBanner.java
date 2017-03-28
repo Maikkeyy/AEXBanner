@@ -1,8 +1,13 @@
 package com.gso;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -10,28 +15,76 @@ import javafx.stage.Stage;
  */
 
 public class AEXBanner extends Application {
+    public static final int WIDTH = 1000;
+    public static final int HEIGHT = 100;
+    public static final int NANO_TICKS = 20000000;
+
     private BannerController bannerController;
+    private AnimationTimer animationTimer;
+
+    private Text text;
+    private double textLength;
+    private double textPosition;
+
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        StackPane root = new StackPane();
+        bannerController = new BannerController(this);
 
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        Font font = new Font("Arial", HEIGHT);
+        text = new Text();
+        text.setFont(font);
+        text.setFill(Color.BLACK);
+
+        Pane root = new Pane();
+        root.getChildren().add(text);
+        Scene scene = new Scene(root, WIDTH, HEIGHT);
+
+
+        primaryStage.setTitle("AEX banner");
+        primaryStage.setScene(scene);
         primaryStage.show();
+
+        // Start animation: text moves from right to left
+        animationTimer = new AnimationTimer() {
+            private long prevUpdate;
+
+            @Override
+            public void handle(long now) {
+                long lag = now - prevUpdate;
+                if (lag >= NANO_TICKS) {
+                    // calculate new location of text
+                    // TODO
+                    text.relocate(textPosition,0);
+                    prevUpdate = now;
+                }
+            }
+            @Override
+            public void start() {
+                prevUpdate = System.nanoTime();
+                textPosition = WIDTH;
+                text.relocate(textPosition, 0);
+                setKoersen("Nothing to display");
+                super.start();
+            }
+        };
+        animationTimer.start();
+
     }
 
     public static void main(String[] args) {
         launch(args);
     }
 
-    @Override
-    public void stop() {
-
+    public void setKoersen(String koersen) {
+        text.setText(koersen);
+        textLength = text.getLayoutBounds().getWidth();
     }
 
-    public void setKoersen(String koersen) {
-
+    @Override
+    public void stop() {
+        animationTimer.stop();
+        bannerController.stop();
     }
 
 }
