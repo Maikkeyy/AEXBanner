@@ -6,4 +6,5 @@ package com.gso;
 public interface IFonds {
     String getNaam();
     double getKoers();
+    void setKoers(double koers); // anders kan je de koers nooit aanpassen
 }
