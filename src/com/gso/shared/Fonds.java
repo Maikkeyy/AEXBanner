@@ -1,9 +1,13 @@
-package com.gso;
+package com.gso.shared;
+
+import com.gso.IFonds;
+
+import java.io.Serializable;
 
 /**
  * Created by Maikkeyy on 4-4-2017.
  */
-public class Fonds implements IFonds {
+public class Fonds implements IFonds, Serializable {
     private String naam;
     private double koers;
 

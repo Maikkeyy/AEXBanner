@@ -1,5 +1,7 @@
 package com.gso;
 
+import com.gso.shared.IEffectenbeurs;
+
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -23,7 +25,6 @@ public class BannerController {
             @Override
             public void run()
             {
-              // effectenbeurs.getKoersen();
                setKoersen();
             }
         }, 0, 2000);

@@ -1,5 +1,9 @@
 package com.gso;
 
+import com.gso.shared.Fonds;
+import com.gso.shared.IEffectenbeurs;
+import com.gso.IFonds;
+
 import java.util.*;
 
 /**
