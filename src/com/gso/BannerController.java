@@ -2,6 +2,7 @@ package com.gso;
 
 import com.gso.shared.IEffectenbeurs;
 
+import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -16,7 +17,12 @@ public class BannerController {
 
     public BannerController(AEXBanner banner) {
         this.banner = banner;
-        this.effectenbeurs = new MockEffectenbeurs();
+
+        try {
+            this.effectenbeurs = new Effectenbeurs();
+        } catch (RemoteException ex) {
+            System.out.println("Remote Exception: " + ex.getMessage());
+        }
 
         // Start polling timer: update banner every two seconds
         pollingTimer = new Timer();
@@ -39,7 +45,12 @@ public class BannerController {
     }
 
     public void setKoersen() {
-        List<IFonds> fondsen = effectenbeurs.getKoersen();
+        List<IFonds> fondsen = null;
+        try {
+            fondsen = effectenbeurs.getKoersen();
+        } catch (RemoteException ex) {
+            System.out.println("RemoteException: " + ex.getMessage());
+        }
         String koersen = "";
 
         for(IFonds fonds : fondsen) {
