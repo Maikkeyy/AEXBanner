@@ -1,8 +1,11 @@
 package com.gso;
 
+import com.gso.client.RMIClient;
+import com.gso.server.Effectenbeurs;
 import com.gso.shared.IEffectenbeurs;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -14,15 +17,11 @@ public class BannerController {
     private AEXBanner banner;
     private IEffectenbeurs effectenbeurs;
     private Timer pollingTimer;
+    private RMIClient client;
 
     public BannerController(AEXBanner banner) {
         this.banner = banner;
-
-        try {
-            this.effectenbeurs = new Effectenbeurs();
-        } catch (RemoteException ex) {
-            System.out.println("Remote Exception: " + ex.getMessage());
-        }
+        client = new RMIClient("192.168.58.1", 1099, this);
 
         // Start polling timer: update banner every two seconds
         pollingTimer = new Timer();
@@ -31,7 +30,13 @@ public class BannerController {
             @Override
             public void run()
             {
-               setKoersen();
+                effectenbeurs = client.getEffectenbeurs();
+
+              /*  try {
+                    setKoersen(effectenbeurs.getKoersen());
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                } */
             }
         }, 0, 2000);
 
@@ -41,16 +46,10 @@ public class BannerController {
     public void stop() {
         pollingTimer.cancel();
         // Stop simulation timer of effectenbeurs
-        ((MockEffectenbeurs)effectenbeurs).cancel();
+        //((MockEffectenbeurs)effectenbeurs).cancel();
     }
 
-    public void setKoersen() {
-        List<IFonds> fondsen = null;
-        try {
-            fondsen = effectenbeurs.getKoersen();
-        } catch (RemoteException ex) {
-            System.out.println("RemoteException: " + ex.getMessage());
-        }
+    public void setKoersen(List<IFonds> fondsen) {
         String koersen = "";
 
         for(IFonds fonds : fondsen) {
@@ -59,6 +58,10 @@ public class BannerController {
         }
 
         banner.setKoersen(koersen);
+    }
+
+    public void setEffectenbeurs(IEffectenbeurs effectenbeurs) {
+        this.effectenbeurs = effectenbeurs;
     }
 
 }

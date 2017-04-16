@@ -86,8 +86,7 @@ public class AEXBanner extends Application {
             }
         });
     }
-
-
+    
     @Override
     public void stop() {
         animationTimer.stop();

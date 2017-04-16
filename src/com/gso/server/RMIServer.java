@@ -3,14 +3,10 @@ package com.gso.server;
 /**
  * Created by Maikkeyy on 15-4-2017.
  */
-import com.gso.Effectenbeurs;
 import com.gso.shared.IEffectenbeurs;
 
 import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
 import java.net.UnknownHostException;
-import java.util.Enumeration;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -57,7 +53,7 @@ public class RMIServer {
         try {
             registry.rebind(bindingName, effectenbeurs);
         } catch (RemoteException ex) {
-            System.out.println("Server: Cannot bind student administration");
+            System.out.println("Server: Cannot bind effectenbeurs");
             System.out.println("Server: RemoteException: " + ex.getMessage());
         }
     }
@@ -67,20 +63,20 @@ public class RMIServer {
         try {
             InetAddress localhost = InetAddress.getLocalHost();
             System.out.println("Server: IP Address: " + localhost.getHostAddress());
-            // Just in case this host has multiple IP addresses....
+          /*  // Just in case this host has multiple IP addresses....
             InetAddress[] allMyIps = InetAddress.getAllByName(localhost.getCanonicalHostName());
             if (allMyIps != null && allMyIps.length > 1) {
                 System.out.println("Server: Full list of IP addresses:");
                 for (InetAddress allMyIp : allMyIps) {
                     System.out.println("    " + allMyIp);
                 }
-            }
+            } */
         } catch (UnknownHostException ex) {
             System.out.println("Server: Cannot get IP address of local host");
             System.out.println("Server: UnknownHostException: " + ex.getMessage());
         }
 
-        try {
+      /*  try {
             System.out.println("Server: Full list of network interfaces:");
             for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
                 NetworkInterface intf = en.nextElement();
@@ -92,7 +88,7 @@ public class RMIServer {
         } catch (SocketException ex) {
             System.out.println("Server: Cannot retrieve network interface list");
             System.out.println("Server: UnknownHostException: " + ex.getMessage());
-        }
+        } */
     }
 
     /**
