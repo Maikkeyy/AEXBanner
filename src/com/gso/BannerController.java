@@ -32,11 +32,11 @@ public class BannerController {
             {
                 effectenbeurs = client.getEffectenbeurs();
 
-              /*  try {
+                try {
                     setKoersen(effectenbeurs.getKoersen());
                 } catch (RemoteException e) {
                     e.printStackTrace();
-                } */
+                }
             }
         }, 0, 2000);
 
@@ -54,6 +54,7 @@ public class BannerController {
 
         for(IFonds fonds : fondsen) {
             String koers = String.valueOf(fonds.getKoers());
+
             koersen = koersen + " " +  fonds.getNaam() + " : " + koers;
         }
 

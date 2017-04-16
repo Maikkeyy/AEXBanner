@@ -66,6 +66,7 @@ public class AEXBanner extends Application {
             public void start() {
                 prevUpdate = System.nanoTime();
                 textPosition = WIDTH;
+                text.relocate(textPosition, 0);
                 super.start(); // wherein handle() will be called 60 ps
             }
         };

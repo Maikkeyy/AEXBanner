@@ -52,7 +52,8 @@ public class RMIClient {
             System.out.println("Client: Registry is null pointer");
         }
 
-       /* if (registry != null)
+        // Initialize effectenbeurs for the first time
+        if (registry != null)
         {
             try
             {
@@ -71,13 +72,13 @@ public class RMIClient {
                 System.out.println("Client: NotBoundException: " + ex.getMessage());
                 bannerController = null;
             }
-        } */
+        }
 
         if(registry != null) {
             printContentsRegistry();
         }
 
-        // Bind effectenbeurs using registry
+        // Pull effectenbeurs from server every second
         pollingTimer = new Timer();
         pollingTimer.schedule(new TimerTask() {
             @Override

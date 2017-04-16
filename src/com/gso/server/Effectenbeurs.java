@@ -27,7 +27,7 @@ public class Effectenbeurs extends UnicastRemoteObject implements IEffectenbeurs
         r = new Random();
 
         //Timer om de koersen te updaten.
-      /*  timer = new Timer();
+        timer = new Timer();
         timer.schedule(new TimerTask()
         {
             @Override
@@ -36,7 +36,7 @@ public class Effectenbeurs extends UnicastRemoteObject implements IEffectenbeurs
                 verversKoersen();
             }
 
-        }, 0, 1000); */
+        }, 0, 1000);
     }
 
     public void verversKoersen() {
