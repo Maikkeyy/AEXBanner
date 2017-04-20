@@ -4,6 +4,7 @@ package com.gso.server;
  * Created by Maikkeyy on 15-4-2017.
  */
 import com.gso.shared.IEffectenbeurs;
+import fontyspublisher.RemotePublisher;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -49,7 +50,7 @@ public class RMIServer {
             registry = null;
         }
 
-        // Bind Effectenbeurs using registry
+        // Bind Effectenbeurs and remotePublisher using registry
         try {
             registry.rebind(bindingName, effectenbeurs);
         } catch (RemoteException ex) {

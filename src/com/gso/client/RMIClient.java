@@ -6,6 +6,7 @@ package com.gso.client;
 import com.gso.BannerController;
 import com.gso.server.Effectenbeurs;
 import com.gso.shared.IEffectenbeurs;
+import fontyspublisher.IRemotePublisherForListener;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -35,7 +36,7 @@ public class RMIClient {
         System.out.println("Client: IP Address: " + ipAddress);
         System.out.println("Client: Port number " + portNumber);
 
-        // Locate registry at IP address and port number
+        // Locate registry at IP address and port number and connect with remote publisher
         try {
             registry = LocateRegistry.getRegistry(ipAddress, portNumber);
         } catch (RemoteException ex) {

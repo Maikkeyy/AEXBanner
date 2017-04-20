@@ -11,4 +11,6 @@ import java.util.List;
  */
 public interface IEffectenbeurs extends Remote {
     List<IFonds> getKoersen() throws RemoteException;
+
+    void verversKoersen();
 }
